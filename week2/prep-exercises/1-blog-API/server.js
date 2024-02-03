@@ -85,6 +85,7 @@ app.get('/blogs', (req, res) => {
         //path.parse(file) shows everything (we want name only)
     });
     res.json(posts);
+    //res.status(200).json(posts);
 })
 
 //using promises (async/await)
@@ -116,8 +117,6 @@ app.post('/blogs/write-post', async (req, res) => {
     }
 });
 */
-
-
 
 
 app.listen(3000, () => { console.log(`Running...`); });
