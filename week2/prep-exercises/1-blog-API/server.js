@@ -91,7 +91,6 @@ app.get('/blogs', (req, res) => {
 //using promises (async/await)
 /*
 app.post('/blogs/write-post', async (req, res) => {
-    // How to get the title and content from the request??
     const { title, content } = req.body;
 
     if (!title || !content || title.trim() === '' || content.trim() === '') {
