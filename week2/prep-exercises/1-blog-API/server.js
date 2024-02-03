@@ -75,10 +75,16 @@ app.get('/blogs/:title', (req, res) => {
 
 });
 
-app.get('/', (req, res) => {
+app.get('/blogs', (req, res) => {
     // how to get the file names of all files in a folder??
-    const filesPath = path.join(__dirname, 'blogs');
+    const files = fs.readdirSync(path.join(__dirname, 'blogs'));
 
+    const posts = files.map(file => {
+        const cont = fs.readFileSync(path.join(__dirname, 'blogs', file), 'utf8');
+        return { title: path.parse(file).name, content: cont }
+        //path.parse(file) shows everything (we want name only)
+    });
+    res.json(posts);
 })
 
 //using promises (async/await)
