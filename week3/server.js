@@ -107,6 +107,33 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/profile', (req, res) => {
+  //grab jwt from header authorization
+  const token = req.headers.authorization;
+
+  //check if it's provided
+  if (!token) {
+    return res.status(401).json({ message: 'No  token provided!' }); //something wrong here
+
+    try {
+      const decodedUser = JWT.verify(token, secretKey);
+
+      //render/retrieve user's profile
+      const user = usersDatabase.find(e => e.id === userId);
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      res.status(200).json({ username: user.username });
+
+    } catch (err) {
+      res.status(500).json({ message: 'Error: retrieving user profile' })
+    }
+
+  }
+});
+
 console.log('Hello from here');
 console.log('Hello from There');
 
